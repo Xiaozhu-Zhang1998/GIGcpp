@@ -7,15 +7,15 @@
 
 // Algorithm 0: Sample from truncated exponential distribution
 Eigen::VectorXd Rcpp_trunc_exp(int n, double rate, double a, double b) {
-    Eigen::VectorXd x = Eigen::VectorXd::Zero(n);
-    for (auto i = 0; i < n; ++i)
-       x[i] = R::rexp(1/rate) + a;
-    if (isinf(b))
-      return x;
-    double c = b - a;
-    for (auto i = 0; i < n; ++i)
-      x[i] = x[i] - floor((x[i] - a) / c) * c;
+  Eigen::VectorXd x = Eigen::VectorXd::Zero(n);
+  for (auto i = 0; i < n; ++i)
+    x[i] = R::rexp(1/rate) + a;
+  if (isinf(b))
     return x;
+  double c = b - a;
+  for (auto i = 0; i < n; ++i)
+    x[i] = x[i] - floor((x[i] - a) / c) * c;
+  return x;
 }
 
 
@@ -117,12 +117,31 @@ Eigen::VectorXd Rcpp_find_cutoff_under_fixed_number(double v, double b, int n) {
 
 
 // Algorithm 5: Sample from GIG
+
+//' @title A Generator for Generalized Gaussian Distribution
+//' @description A function that generates random variates from generalized Gaussian distributions. 
+//' User can specify a rejection rate upper bound or a desired number of cutoff points.
+//' @param N number of variates.
+//' @param lambda parameter lambda.
+//' @param psi parameter psi.
+//' @param chi parameter chi.
+//' @param eps desired rejection rate between 0 and 1; active only when `K` == 0. 
+//' @param K desired number of cutoff points
+//' @note See Zhang and Reiter (2022)
+//' @return a vector of `N` random variates of the specified GIG distribution
 // [[Rcpp::export]]
+
 Eigen::VectorXd rgig(int N, double lambda, double psi, double chi, double eps = 0.5, int K = 0) {
   if(lambda == 0) {
     Rcpp::stop("lambda cannot be 0.");
   }
-  
+  if(eps <= 0 || eps >= 1) {
+    Rcpp::stop("eps must be between 0 and 1.");
+  }
+  if(K < 0) {
+    Rcpp::stop("K must be non-negative.");
+  }
+    
   bool flag = false;
   Eigen::VectorXd cutpoint;
   if(lambda > 0) {

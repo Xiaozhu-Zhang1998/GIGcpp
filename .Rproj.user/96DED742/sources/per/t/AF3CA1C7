@@ -1,0 +1,24 @@
+{
+    "id": "AF3CA1C7",
+    "path": "~/Documents/GIG/GIGcpp/R/hello2.R",
+    "project_path": "R/hello2.R",
+    "type": "r_source",
+    "hash": "2854526263",
+    "contents": "",
+    "dirty": false,
+    "created": 1668723699607.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1668723690,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1668723690,
+    "read_only": false,
+    "read_only_alternatives": []
+}

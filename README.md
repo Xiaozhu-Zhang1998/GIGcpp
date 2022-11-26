@@ -23,7 +23,7 @@ rgig(N, lambda, psi, chi, eps = 0.5, K = 0L)
 
 `chi`: parameter chi.
 
-`eps`: desired rejection rate between 0 and 1; active only when 'K' == 0.
+`eps`: desired rejection rate between 0 and 1; active only when `K` is 0.
 
 `K`: desired number of cutoff points.
 
@@ -32,4 +32,4 @@ This function returns a vector of `N` random variates of the specified GIG distr
 
 ## Details
 
-See Zhang and Reiter (2022).
+See [Zhang and Reiter (2022)](https://arxiv.org/abs/2211.13049).
